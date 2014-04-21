@@ -1,0 +1,20 @@
+{
+  "name": "selenium-wd",
+  "version": "0.1.0",
+  "description": "easy use of selenium and wd",
+  "author": "b612lodger <b612lodger@gmail.com>",
+  "keywords": [
+    "selenium",
+    "wd",
+    "webdriver",
+	"ui test",
+    "se-builder",
+    "selenium ide"
+  ],
+  "homepage": "https://github.com/b612lodger/selenium-wd",
+  "repository": "https://github.com/b612lodger/selenium-wd.git",
+  "devDependencies": {
+    "wd": "^0.2.19"
+  },
+  "license": "MIT"
+}
