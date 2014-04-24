@@ -7,14 +7,18 @@
     "selenium",
     "wd",
     "webdriver",
-	"ui test",
+    "uitest",
     "se-builder",
     "selenium ide"
   ],
   "homepage": "https://github.com/b612lodger/selenium-wd",
   "repository": "https://github.com/b612lodger/selenium-wd.git",
   "devDependencies": {
-    "wd": "^0.2.19"
+    "wd": "^0.2.19",
+    "expect.js": "^0.3.1"
+  },
+  "scripts": {
+    "test": "mocha -r expect.js ./test/temp_test.js"
   },
   "license": "MIT"
 }
