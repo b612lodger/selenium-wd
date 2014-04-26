@@ -15,10 +15,11 @@
   "repository": "https://github.com/b612lodger/selenium-wd.git",
   "devDependencies": {
     "wd": "^0.2.19",
-    "expect.js": "^0.3.1"
+    "expect.js": "^0.3.1",
+    "mocha": "^1.18.2"
   },
   "scripts": {
-    "test": "mocha -r expect.js ./test/temp_test.js"
+    "test": "./node_modules/.bin/mocha -r expect.js"
   },
   "license": "MIT"
 }
