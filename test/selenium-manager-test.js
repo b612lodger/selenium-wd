@@ -7,7 +7,7 @@ describe('SeleniumManager', function () {
 	var SeleniumManager = require('../lib/selenium-manager').SeleniumManager;
 	var RESPONSE = require('../lib/selenium-manager').RESPONSE;
 	var seleniumManager;
-	describe('start method', function () {
+	describe('start & stop functions', function () {
 		it('with proper options should start and callback with response ok', function (done) {
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
