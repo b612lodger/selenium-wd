@@ -3,6 +3,19 @@
 
 var expect = expect || require('expect.js');
 
+describe('java interpreter', function () {
+	var exec = require('child_process').exec;
+	it('should be reachable by command exec', function (done) {
+		exec('java -version', function (error, stdout, stderr) {
+			var out = stdout || stderr;
+			console.log(out);
+			expect(error).to.not.be.ok();
+			expect(out).to.contain('version');
+			done();
+		});
+	});
+});
+
 describe('SeleniumManager', function () {
 	var SeleniumManager = require('../lib/selenium-manager').SeleniumManager;
 	var RESPONSE = require('../lib/selenium-manager').RESPONSE;
