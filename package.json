@@ -23,7 +23,7 @@
     "mocha": "^1.18.2"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -r expect.js -R spec"
+    "test": "./node_modules/.bin/mocha -r expect.js -R spec --timeout 30000"
   },
   "license": "MIT"
 }

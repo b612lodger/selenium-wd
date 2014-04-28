@@ -15,8 +15,6 @@ describe('SeleniumManager', function () {
 			seleniumManager = new SeleniumManager();
 			exec(seleniumManager._javaInterpreter + ' -version', function (error, stdout, stderr) {
 				var out = stdout || stderr;
-				console.log(seleniumManager._javaInterpreter + ' -version');
-				console.log(out);
 				expect(error).to.not.be.ok();
 				expect(out).to.contain('version');
 				done();
