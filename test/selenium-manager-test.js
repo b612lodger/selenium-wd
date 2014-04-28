@@ -3,37 +3,37 @@
 
 var expect = expect || require('expect.js');
 
-describe('java interpreter', function () {
-	var exec = require('child_process').exec;
-	it('should be reachable by command exec', function (done) {
-		exec('java -version', function (error, stdout, stderr) {
-			var out = stdout || stderr;
-			console.log(out);
-			expect(error).to.not.be.ok();
-			expect(out).to.contain('version');
-			done();
-		});
-	});
-});
 
 describe('SeleniumManager', function () {
 	var SeleniumManager = require('../lib/selenium-manager').SeleniumManager;
 	var RESPONSE = require('../lib/selenium-manager').RESPONSE;
 	var seleniumManager;
+
+	describe('initializer', function () {
+		it('should have proper java interpreter path', function (done) {
+			var exec = require('child_process').exec;
+			seleniumManager = new SeleniumManager();
+			exec(seleniumManager._javaInterpreter + ' -version', function (error, stdout, stderr) {
+				var out = stdout || stderr;
+				console.log(seleniumManager._javaInterpreter + ' -version');
+				console.log(out);
+				expect(error).to.not.be.ok();
+				expect(out).to.contain('version');
+				done();
+			});
+		});
+	});
+
 	describe('start & stop functions', function () {
 		it('with proper options should start and callback with response ok', function (done) {
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.OK);
+				seleniumManager.stop();
 				done();
 			});
 		});
 
-		it('should stop and callback', function (done) {
-			seleniumManager.stop(function () {
-				done();
-			});
-		});
 
 		it('with wrong java option should fail with response fail', function (done) {
 			seleniumManager = new SeleniumManager('/wrongpath/java');
@@ -61,20 +61,20 @@ describe('SeleniumManager', function () {
 			}, {serverJar: '/wrongpath/selenium.jar'});
 		});
 
-		it('with wrong selenium option (ie32Driver) should fail with response fail', function (done) {
+		it('with wrong selenium option (ieDriver) should fail with response fail', function (done) {
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
 				done();
-			}, {ie32Driver: '/wrongpath/iedriver32.exe'});
+			}, {ieDriver: '/wrongpath/iedriver32.exe'});
 		});
 
-		it('with wrong selenium option (ie64Driver) should fail with response fail', function (done) {
+		it('with wrong selenium option (seleniumJar + ieDriver) should fail with response fail', function (done) {
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
 				done();
-			}, {ie64Driver: '/wrongpath/iedriver64.exe'});
+			}, {serverJar: '/wrongpath/selenium.jar', ieDriver: '/wrongpath/iedriver32.exe'});
 		});
 	});
 });

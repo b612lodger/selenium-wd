@@ -13,8 +13,12 @@
   ],
   "homepage": "https://github.com/b612lodger/selenium-wd",
   "repository": "https://github.com/b612lodger/selenium-wd.git",
-  "devDependencies": {
+  "dependencies": {
     "wd": "^0.2.19",
+    "colors": "^0.6.2",
+    "async": "^0.7.0"
+  },
+  "devDependencies": {
     "expect.js": "^0.3.1",
     "mocha": "^1.18.2"
   },
