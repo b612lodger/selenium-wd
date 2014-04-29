@@ -12,7 +12,7 @@ describe('SeleniumManager', function () {
 	describe('initializer', function () {
 		it('should have proper java interpreter path', function (done) {
 			var exec = require('child_process').exec;
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			exec(seleniumManager._javaInterpreter + ' -version', function (error, stdout, stderr) {
 				var out = stdout || stderr;
 				expect(error).to.not.be.ok();
@@ -24,7 +24,7 @@ describe('SeleniumManager', function () {
 
 	describe('start & stop functions', function () {
 		it('with proper options should start and callback with response ok', function (done) {
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.OK);
 				seleniumManager.stop();
@@ -34,7 +34,7 @@ describe('SeleniumManager', function () {
 
 
 		it('with wrong java option should fail with response fail', function (done) {
-			seleniumManager = new SeleniumManager('/wrongpath/java');
+			seleniumManager = new SeleniumManager('/wrongpath/java', true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_JAVA_NOT_FOUND);
 				done();
@@ -44,7 +44,7 @@ describe('SeleniumManager', function () {
 		it('with wrong selenium option (port number) should fail with response fail ', function (done) {
 			require('http').createServer().listen(8123);
 
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_PORT_UNAVAILABLE);
 				done();
@@ -52,7 +52,7 @@ describe('SeleniumManager', function () {
 		});
 
 		it('with wrong selenium option (seleniumJar) should fail with response fail', function (done) {
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
 				done();
@@ -60,7 +60,7 @@ describe('SeleniumManager', function () {
 		});
 
 		it('with wrong selenium option (ieDriver) should fail with response fail', function (done) {
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
 				done();
@@ -68,7 +68,7 @@ describe('SeleniumManager', function () {
 		});
 
 		it('with wrong selenium option (seleniumJar + ieDriver) should fail with response fail', function (done) {
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
 				done();
