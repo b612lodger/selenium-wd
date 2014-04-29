@@ -75,4 +75,31 @@ describe('SeleniumManager', function () {
 			}, {serverJar: '/wrongpath/selenium.jar', ieDriver: '/wrongpath/iedriver32.exe'});
 		});
 	});
+
+	describe('integration with wd', function(){
+		it('should work ok', function(done){
+			var wd = require('wd');
+
+			seleniumManager = new SeleniumManager();
+			seleniumManager.start(function (response) {
+				expect(response).to.eql(RESPONSE.OK);
+
+				var b = wd.promiseRemote();
+
+				b.on('status', function(info){console.log('[36m%s[0m', info);});b.on('command', function(meth, path, data){  console.log(' > [33m%s[0m: %s', meth, path, data || '');});
+				b.init({
+					browserName:'phantomjs'
+				})
+				.then(function () { return b.get("http://dalekjs.com/pages/getStarted.html"); })
+				.then(function () { return b.get("http://www.naver.com"); })
+				.then(function () { return b.get("http://www.daum.net"); })
+				.then(function () { return b.get("http://www.google.com"); })
+				.fin(function () {
+					b.quit();
+					seleniumManager.stop();
+					done();
+				}).done();
+			});
+		});
+	});
 });
