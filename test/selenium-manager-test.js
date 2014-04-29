@@ -33,13 +33,13 @@ describe('SeleniumManager', function () {
 		});
 
 
-//		it('with wrong java option should fail with response fail', function (done) {
-//			seleniumManager = new SeleniumManager('/wrongpath/java');
-//			seleniumManager.start(function (response) {
-//				expect(response).to.eql(RESPONSE.ERROR_JAVA_NOT_FOUND);
-//				done();
-//			});
-//		});
+		it('with wrong java option should fail with response fail', function (done) {
+			seleniumManager = new SeleniumManager('/wrongpath/java');
+			seleniumManager.start(function (response) {
+				expect(response).to.eql(RESPONSE.ERROR_JAVA_NOT_FOUND);
+				done();
+			});
+		});
 
 		it('with wrong selenium option (port number) should fail with response fail ', function (done) {
 			require('http').createServer().listen(8123);
@@ -58,22 +58,6 @@ describe('SeleniumManager', function () {
 				done();
 			}, {serverJar: '/wrongpath/selenium.jar'});
 		});
-
-//		it('with wrong selenium option (ieDriver) should fail with response fail', function (done) {
-//			seleniumManager = new SeleniumManager();
-//			seleniumManager.start(function (response) {
-//				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
-//				done();
-//			}, {ieDriver: '/wrongpath/iedriver32.exe'});
-//		});
-//
-//		it('with wrong selenium option (seleniumJar + ieDriver) should fail with response fail', function (done) {
-//			seleniumManager = new SeleniumManager();
-//			seleniumManager.start(function (response) {
-//				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
-//				done();
-//			}, {serverJar: '/wrongpath/selenium.jar', ieDriver: '/wrongpath/iedriver32.exe'});
-//		});
 	});
 
 	describe('integration with wd', function(){
