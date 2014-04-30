@@ -70,7 +70,7 @@ describe('SeleniumManager', function () {
 		it('should work ok', function(done){
 			var wd = require('wd');
 
-			seleniumManager = new SeleniumManager();
+			seleniumManager = new SeleniumManager(null, true);
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.OK);
 
@@ -78,7 +78,7 @@ describe('SeleniumManager', function () {
 
 				b.on('status', function(info){console.log('[36m%s[0m', info);});b.on('command', function(meth, path, data){  console.log(' > [33m%s[0m: %s', meth, path, data || '');});
 				b.init({
-					browserName:'phantomjs'
+					browserName:'phantomjs' //phantomjs, safari, firefox
 				})
 				.then(function () { return b.get("http://dalekjs.com/pages/getStarted.html"); })
 				.then(function () { return b.get("http://www.naver.com"); })
