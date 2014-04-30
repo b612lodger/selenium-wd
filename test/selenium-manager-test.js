@@ -42,12 +42,14 @@ describe('SeleniumManager', function () {
 		});
 
 		it('with wrong selenium option (port number) should fail with response fail ', function (done) {
-			require('http').createServer().listen(8123);
-
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
-				expect(response).to.eql(RESPONSE.ERROR_PORT_UNAVAILABLE);
-				done();
+				expect(response).to.eql(RESPONSE.OK);
+				var seleniumManager2 = new SeleniumManager();
+				seleniumManager2.start(function (response2) {
+					expect(response2).to.eql(RESPONSE.ERROR_PORT_UNAVAILABLE);
+					done();
+				}, {port: 8123}); //set port number in use.
 			}, {port: 8123}); //set port number in use.
 		});
 
