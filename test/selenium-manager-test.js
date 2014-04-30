@@ -37,6 +37,7 @@ describe('SeleniumManager', function () {
 			seleniumManager = new SeleniumManager('/wrongpath/java');
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_JAVA_NOT_FOUND);
+				seleniumManager.stop();
 				done();
 			});
 		});
@@ -48,15 +49,18 @@ describe('SeleniumManager', function () {
 				var seleniumManager2 = new SeleniumManager();
 				seleniumManager2.start(function (response2) {
 					expect(response2).to.eql(RESPONSE.ERROR_PORT_UNAVAILABLE);
+					seleniumManager.stop();
+					seleniumManager2.stop();
 					done();
-				}, {port: 8123}); //set port number in use.
-			}, {port: 8123}); //set port number in use.
+				}, {port: 8124}); //set port number in use.
+			}, {port: 8124}); //set port number in use.
 		});
 
 		it('with wrong selenium option (seleniumJar) should fail with response fail', function (done) {
 			seleniumManager = new SeleniumManager();
 			seleniumManager.start(function (response) {
 				expect(response).to.eql(RESPONSE.ERROR_DRIVER_NOT_FOUND);
+				seleniumManager.stop();
 				done();
 			}, {serverJar: '/wrongpath/selenium.jar'});
 		});
